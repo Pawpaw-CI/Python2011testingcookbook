@@ -1,0 +1,14 @@
+0.类名要求大写字母开头，函数小写字母
+1.测试类命名方式：被测类名+Test（）
+2.测试用例命名方法：test（小写开头）_测试用例方法名
+3.测试类使用之前，需要先创建对象self.
+class RomanNumeralConverter(object):
+    #类的构造方法的关键字__init__，当对象被创建时，python解释器会去类中查找名叫__init__的函数
+    def __init__(self,roman_numeral):
+    #初始化，为对象添加一些实例变量，self.roman_numeral对象，对其实例变量roman_numeral的创建和初始化
+        self.roman_numeral = roman_numeral
+        self.digit_map = {"M":1000,"D":500,"C":100,"L":50,"X":10,"V":5,"I":1}
+
+
+4.元组（内部元素不可变），列表[无序],字典{"键":"值"}，集合，可变集合set（支持删除和添加），不可变集合frozenset（不支持删除和添加）
+5.异常捕获要用raises，

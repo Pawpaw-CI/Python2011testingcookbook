@@ -1,0 +1,4 @@
+1.进入安装虚拟环境Scripts，按住shift键打开本地打开命令窗口
+2.pip list查看已安装包
+3.pip install nose安装nose
+4.Terminal:> nosetests rcipe11.py
