@@ -1,0 +1,104 @@
+
+pytest_fixtures,范围：
+测试函数（function）：一次一个用例
+测试类(class)：一次一个类中的用例集合
+测试模块（module）：一次一个模块
+测试会话(session)：一个一个会话
+定义方式：@pytest.fixture(scope=“class”)
+pytest没有包的范围概念package
+*********************************************************
+测试运行方式
+执行目录/test/...
+py.test test #执行全部文件夹中的用例（文件、测试类、用例），test开头或结尾的
+py.test -v test/test_module01.py::test_case01 #执行文件中的某一个用例
+py.test -v test/test_module02.py #执行文件中的全部用例
+py.test -v test/test_module02.py::TestClass01 #执行文件中的某一个测试类全部用例
+py.test -v test/test_module02.py::TestClass01::test_case01 #执行文件中的某一个测试类中的某一个用例
+@@@@@@@@@@@@@@@@@@@@
+py.test -v -s  test_module03.py
+@@@@@@@@@@@@@@@@@@@@@
+H:\dxy\Python2011testingcookbook\Pytest\test>py.test -v -s  test_module03.py
+运行结果：
+test_module03.py::test_case01
+#测试文件：：测试用例
+In setup_module()...
+#初始化文件
+In setup_function()...
+#初始化函数
+
+In test_case01()...
+#执行测试用例
+PASSED
+#测试结果
+In teardown_function()...
+#执行测试完成
+test_module03.py::test_case02
+In setup_function()...
+
+In test_case02()...
+PASSED
+In teardown_function()...
+
+test_module03.py::TestClass02::test_case03
+#测试文件：：测试类：：测试用例
+In setup_class()...
+#初始化类
+In setup_method()...
+#加载测试方法
+In test_case03()...
+#执行测试用例
+PASSED
+#测试结果
+In teardown_method()...
+#测试结束
+test_module03.py::TestClass02::test_case04
+In setup_method()...
+
+In test_case04()...
+PASSED
+In teardown_method()...
+
+In teardown()...
+
+
+============================== warnings summary ===============================
+None
+  pytest_funcarg__cov: declaring fixtures using "pytest_funcarg__" prefix is deprecated and scheduled to be removed in pytest 4.0.  Please remove the prefix and use the @p
+ytest.fixture decorator instead.
+
+-- Docs: http://doc.pytest.org/en/latest/warnings.html
+==================== 4 passed, 1 warnings in 0.04 seconds =====================
+
+
+
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+py.test -v -s  test_module04.py
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+H:\dxy\Python2011testingcookbook\Pytest\test>py.test -v -s  test_module04.py
+============================= test session starts =============================
+platform win32 -- Python 2.7.13, pytest-3.1.3, py-1.4.34, pluggy-0.4.0 -- c:\python27\python.exe
+cachedir: ..\..\.cache
+metadata: {'Python': '2.7.13', 'Platform': 'Windows-7-6.1.7601-SP1', 'Packages': {'py': '1.4.34', 'pytest': '3.1.3', 'pluggy': '0.4.0'}, 'JAVA_HOME': 'C:\\Program Files\\J
+ava\\jdk1.8.0_101', 'Plugins': {'pythonpath': '0.7', 'html': '1.15.1', 'xdist': '1.14', 'cov': '2.3.0', 'metadata': '1.5.0'}}
+rootdir: H:\dxy\Python2011testingcookbook, inifile:
+plugins: xdist-1.14, pythonpath-0.7, metadata-1.5.0, html-1.15.1, cov-2.3.0
+collected 1 item s
+
+test_module04.py::test_case01
+#在测试夹具中
+ In fixture01()...
+
+In test_case01()...
+#执行测试用例
+PASSED
+
+============================== warnings summary ===============================
+None
+  pytest_funcarg__cov: declaring fixtures using "pytest_funcarg__" prefix is deprecated and scheduled to be removed in pytest 4.0.  Please remove the prefix and use the @p
+ytest.fixture decorator instead.
+
+-- Docs: http://doc.pytest.org/en/latest/warnings.html
+==================== 1 passed, 1 warnings in 0.02 seconds =====================
+
+H:\dxy\Python2011testingcookbook\Pytest\test>

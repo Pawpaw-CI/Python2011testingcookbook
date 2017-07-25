@@ -1,0 +1,210 @@
+1.安装 :pip install pytest
+2.运行：
+#python -m pytest test_module01.py
+#python -m pytest -v test_module01.py #详细内容-v
+#py.test test_module01.py
+#py.test test_module01.py -v
+test的测试类和包运行，需要在上级目录运行.../Pytest/test
+在Pytest目录执行
+py.test test（文件夹，包）
+py.test -v test 详细信息模式
+py.test  -v test/test_module01.py#运行其中一个模块
+py.test  -v test/test_module02.py
+3.运行结果输出格式
+py.test  -v test_module03.py --junitxml=result.xml 文档格式
+
+@如下--pastebin=all ，创建测试用例的URL
+py.test  -v test_module03.py --pastebin=all 服务模式
+当然，你也可以只选择展示faile的测试用例
+> py.test test_class.py  --pastebin=failed
+
+
+******************************************************************************
+生成html测试报告
+
+=====================
+当然，更多时候，我们希望pytest能生成漂亮的测试报告。这需要安装pytest的扩展--pytest-html。
+> pip install pytest-html     # 通过pip安装pytest-html
+ cmd命令提示符下执行测试文件：
+>py.test test_class.py --html=./report.html
+需要在文档所在目录执行上述语句
+
+
+
+
+*********************************************************************************
+测试初始化预制条件
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+function():
+setup_module/teardown_module      在所有测试用例执行之前和之后执行。
+
+setup_function/teardown_function    在每个测试用例之前和之后执行。
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+class():
+setup_class/teardown_class  在当前测试类的开始与结束执行。
+
+setup/treadown                   在每个测试方法开始与结束执行。
+
+setup_method/teardown_method     在每个测试方法开始与结束执行，与setup/treadown级别相同。
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+测试断言之关系比较：
+##################
+对于测试来讲，不管是功能测试，自动化测试，还是单元测试。
+一般都会预设一个正确的预期结果，而在测试执行的过程中会得到一个实际的结果。
+测试的成功与否就是拿实际的结果与预期的结果进行比较。这个比的过程实际就是断言（assert）。
+在unittest单元测试框架中提供了丰富的断言方法，例如assertEqual()、assertIn()、assertTrue()、assertIs()等，
+而pytest单元测试框架中并没提供特殊的断言方法，而是直接使用python的assert进行断言。
+　　下面我们就来介绍assert 的使用。
+定义一个add()函数，用于计算两个入参相加，并将相加的结果返回。
+而assert可以使用直接使用“==”、“!=”、“<”、“>”、“>=”、"<=" 等符号来比较相等、不相等、小于、大于、大于等于和小于等于。
+###############
+assert@大小关系
+###############
+==等于
+！=不等于
+>=大于等于
+<=小于等于
+<大于
+>小于
+##################
+assert 可以直接使用 in 和not in 来比较包含与不包含。
+assert@包含关系
+##################
+in包含
+not in不包含
+#########################
+#########################
+assert@Ture/False
+#################
+
+通过is_prime()函数来判断n 是否为素数（只能被1和它本身整除的数）。返回值为ture或false。
+通过assert不需要任何辅助符号，直接判断对象是否为ture，而assert not 用于判断是否为false。
+
+#######################
+@raises(Exception)
+pytest。raises（）
+#################
+捕获异常，验证异常
+def test_case01():
+    with pytest.raises(Exception):
+        x = 1/0
+
+########################
+#######################################
+pytest.fixture(测试夹具)
+#######################################
+fixture是pytest的一个闪光点，pytest要精通怎么能不学习fixture呢？跟着我一起深入学习fixture吧。
+其实unittest和nose都支持fixture，但是pytest做得更炫。
+ fixture是pytest特有的功能，它用pytest.fixture标识，定义在函数前面。在你编写测试函数的时候，
+ 你可以将此函数名称做为传入参数，pytest将会以依赖注入方式，将该函数的返回值作为测试函数的传入参数。
+ fixture有明确的名字，在其他函数，模块，类或整个工程调用它时会被激活。 fixture是基于模块来执行的，
+ 每个fixture的名字就可以触发一个fixture的函数，它自身也可以调用其他的fixture。
+  我们可以把fixture看做是资源，在你的测试用例执行之前需要去配置这些资源，执行完后需要去释放资源。
+  比如module类型的fixture，适合于那些许多测试用例都只需要执行一次的操作。
+   fixture还提供了参数化功能，根据配置和不同组件来选择不同的参数。
+    fixture主要的目的是为了提供一种可靠和可重复性的手段去运行那些最基本的测试内容。
+    比如在测试网站的功能时，每个测试用例都要登录和退出，利用fixture就可以只做一次，
+    否则每个测试用例都要做这两步也是冗余。
+   执行方式：
+    pytest -v -s test_fixture_basic.py
+
+三. 调用fixture的三种方式
+1. 在测试用例中直接调用它，例如第二部分的基础实例。
+2. 用fixture decorator调用fixture
+
+可以用以下三种不同的方式来写，我只变化了函数名字和类名字，内容没有变。
+第一种是每个函数前声明，
+第二种是封装在类里，类里的每个成员函数声明，
+第三种是封装在类里在前声明。
+在可以看到3中不同方式的运行结果都是一样。
+@test_fixture_decorator.py
+pytest -v -s test_fixture_decorator.py
+3. 用autos调用fixture
+
+fixture decorator一个optional的参数是autouse, 默认设置为False。
+当默认为False，就可以选择用上面两种方式来试用fixture。 当设置为True时，
+在一个session内的所有的test都会自动调用这个fixture。
+ 权限大，责任也大，所以用该功能时也要谨慎小心。
+
+pytest -v -s test_fixture_autouse.py
+
+
+四. fixture scope
+
+function：每个test都运行，默认是function的scope class：
+每个class的所有test只运行一次 module：每个module的所有test只运行一次 session：
+每个session只运行一次
+
+比如你的所有test都需要连接同一个数据库，那可以设置为module，只需要连接一次数据库，
+对于module内的所有test，这样可以极大的提高运行效率。
+五. fixture 返回值
+
+在上面的例子中，fixture返回值都是默认None，我们可以选择让fixture返回我们需要的东西。
+如果你的fixture需要配置一些数据，读个文件，或者连接一个数据库，
+那么你可以让fixture返回这些数据或资源。
+
+如何带参数 fixture还可以带参数，可以把参数赋值给params，默认是None。
+对于param里面的每个值，fixture都会去调用执行一次，
+就像执行for循环一样把params里的值遍历一次。
+
+@test_fixture_param.py
+pytest -v -s test_fixture_param.py
+
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+4.main()函数，默认执行当前路径下的所有test开头和结尾的测试用例
+如果想执行其中某一个用例pytest。main（"-q test_mian.py"）指定测试文件
+如果我想运行某个目录下的测试用例呢？指定测试目录即可。  pytest.main("H:/../pytest/")  # 指定测试目录
+（一）介绍
+
+  pytest是一个非常成熟的全功能的Python测试框架，主要特点有以下几点：
+  1、简单灵活，容易上手；
+  2、支持参数化；
+  3、能够支持简单的单元测试和复杂的功能测试，还可以用来做selenium/appnium等自动化测试、接口自动化测试（pytest+requests）;
+  4、pytest具有很多第三方插件，并且可以自定义扩展，比较好用的如pytest-selenium（集成selenium）、pytest-html（完美html测试报告生成）、pytest-rerunfailures（失败case重复执行）、pytest-xdist（多CPU分发）等；
+  5、测试用例的skip和xfail处理；
+  6、可以很好的和jenkins集成；
+  （二）安装
+
+　　pip install -U pytest
+
+　　pip install -U pytest-html
+
+　　pip install -U pytest-rerunfailures
+
+此外还有很多很好的第三方插件，请到http://plugincompat.herokuapp.com/ 和 https://pypi.python.org/pypi?%3Aaction=search&term=pytest-&submit=search 查找
+
+ （三）使用和调用
+ 默认执行当前目录下的所有以test_为前缀(test_*.py)或以_test为后缀(*_test.py)的文件中以test_为前缀的函数
+
+    python -m pytest调用：
+        python -m pytest [...] 效果和py.test [...] 一样
+    获取版本，选项名，环境变量
+        py.test --version 看版本
+        py.test --fixtures 查看内置参数
+        py.test -h | --help 命令行和配置文件帮助
+    失败后停止
+        首次失败后停止执行：py.test -x
+        py.test --maxfail=2 两次失败之后停止执行
+    执行选择用例
+        py.test test_mod.py，执行模块中的用例
+        py.test somepath，执行路径中用例
+        py.test -k stringexpr，执行字符串表达式中的用例，比如"MyClass?and not method"，选择TestMyClass.test_something，排除了TestMyClass.test_method_simple。
+        py.test --pyargs pkg，导入pkg，使用其文件系统位置来查找和执行用例。执行pypkg目录下的所有用例。
+    调试输出：
+        py.test --showlocals 在traceback中显示本地变量
+        py.test --showlocals 在traceback中显示本地变量（快捷方式）
+        py.test --tb=long 默认的traceback信息格式化形式
+        py.test --tb=native 标准库格式化形式
+        py.test --tb=short 更短的格式
+        py.test --tb=line 每个错误一行
+    失败时调用PDB (Python Debugger)：
+
+Python带有一个内置的Python调试器称为PDB。pytest可以在命令行选项指定调用：
+
+py.test --pdb
+
+
+
+

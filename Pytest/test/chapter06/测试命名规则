@@ -1,0 +1,14 @@
+1.Names of all the test modules (the test files) should start with
+test_
+#测试(模块)文件名称应该以test_开头
+2.Names of all the test functions should start with test_
+#测试函数名称应该以test_开头
+3.Names of all the test classes should start with Test
+#测试类名称应该以Test_开头
+4.Names of all the test methods should start with test_
+#测试方法名称应该以test_开头
+5.Group all the tests into test classes and packages
+#组中的全部测试用例包含在测试类和包中
+6.All the packages with test code should have an __init__.py file
+#所有测试包测试代码应该包含__init__.py 文件
+按照上述要求制作，unittest、nose、nose2和pytest都会发现测试用例，不会带来其他问题

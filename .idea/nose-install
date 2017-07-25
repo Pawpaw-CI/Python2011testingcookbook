@@ -2,3 +2,4 @@
 2.pip list查看已安装包
 3.pip install nose安装nose
 4.Terminal:> nosetests rcipe11.py
+5.制作安装插件命名为setup.py；安装 Python setup.py install
