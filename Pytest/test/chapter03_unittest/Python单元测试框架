@@ -1,0 +1,13 @@
+Python 的单元测试框架有unittest 、nose、nose2、pytest
+所有的xunit风格的测试自动化库遵循一个共同结构，结构的主要组成部分如下：
+Test case class:在测试模块中它是所有测试类集合的基础，是所有的测试类的来源
+test fixtures:这些功能或方法是在测试代码块运行的之前和之后被执行：初始化和清理
+assertions：这些功能或方法是用来检测被测试部分的行为的。大多数的xunit风格框架拥有强大的断言方法
+Test suite：这是一个收集或一组有联系的测试的能够被一起执行
+Test runner：这是用于执行程序或代码块测试套件的
+Test result formatter:测试报告格式，用于产生人类可读格式测试执行输出，如text、html、xml
+
+**************************************************************************************************
+执行
+Python test_module01.py
+Python test_module01.py -v 详细显示
